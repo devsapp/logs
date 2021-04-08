@@ -1,0 +1,14 @@
+edition: 1.0.0          #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+name: logsApp           #  项目名称
+access: aliyun-release  #  秘钥别名
+
+services:
+  logs-test: #  服务名称
+    component: logs  # 组件名称
+    props: #  组件的属性值
+      region: cn-shenzhen
+      logConfig:
+        project: framework-1899690531354629-cn-shenzhen-a-express
+        logstore: logstore
+      topic: django
+      query: test

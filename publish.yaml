@@ -1,0 +1,66 @@
+Type: Component
+Name: logs
+Provider:
+  - 阿里云
+Version: 0.0.1
+Description: 日志查询功能
+HomePage: https://github.com/devsapp/logs
+Tags: #标签详情
+  - 日志服务
+Category: 基础云服务
+Commands:
+  logs: 查看日志
+Service:
+  日志服务:
+    Authorities:
+      - 日志服务查询权限
+Properties:
+  region:
+    Description: 地域
+    Required: true
+    Type:
+      - Enum:
+          - cn-beijing
+          - cn-hangzhou
+          - cn-shanghai
+          - cn-qingdao
+          - cn-zhangjiakou
+          - cn-huhehaote
+          - cn-shenzhen
+          - cn-chengdu
+          - cn-hongkong
+          - ap-southeast-1
+          - ap-southeast-2
+          - ap-southeast-3
+          - ap-southeast-5
+          - ap-northeast-1
+          - eu-central-1
+          - eu-west-1
+          - us-west-1
+          - us-east-1
+          - ap-south-1
+  logConfig:
+    Description: 日志仓库
+    Required: true
+    Type:
+      - Struct:
+          project:
+            Description: 项目名称
+            Required: true
+            Type:
+              - String
+          logstore:
+            Description: 仓库名称
+            Required: true
+            Type:
+              - String
+  topic:
+    Description: 日志主题
+    Required: true
+    Type:
+      - String
+  query:
+    Description: 查询语句
+    Required: true
+    Type:
+      - String
