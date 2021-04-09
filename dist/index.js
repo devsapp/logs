@@ -50,32 +50,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@serverless-devs/core");
 var moment_1 = __importDefault(require("moment"));
-var lodash_1 = __importDefault(require("lodash"));
 var seachLogs_1 = __importDefault(require("./utils/seachLogs"));
 var constant_1 = require("./constant");
-var interface_1 = require("./interface");
 var Logs = /** @class */ (function () {
     function Logs() {
     }
-    Logs.prototype.getCredentials = function (credentials, provider, accessAlias) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        this.logger.debug("Obtain the key configuration, whether the key needs to be obtained separately: " + lodash_1.default.isEmpty(credentials));
-                        if (interface_1.isCredentials(credentials)) {
-                            return [2 /*return*/, credentials];
-                        }
-                        return [4 /*yield*/, core_1.getCredential(provider, accessAlias)];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    };
     Logs.prototype.logs = function (inputs) {
-        var _a;
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function () {
-            var apts, comParse, _b, provider, accessAlias, credentials, properties, region, logConfig, topic, query, projectName, logStoreName, cmdParameters, logsClient, from, to, startTime, endTime, keyword, type, requestId, queryErrorLog, historyLogs;
+            var apts, comParse, credentials, properties, region, logConfig, topic, query, projectName, logStoreName, cmdParameters, logsClient, from, to, startTime, endTime, keyword, type, requestId, queryErrorLog, historyLogs;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
@@ -85,28 +68,28 @@ var Logs = /** @class */ (function () {
                             // number: ['startTime', 'endTime'],
                             alias: { tail: 't', startTime: 's', endTime: 'e', keyword: 'k', requestId: 'r', help: 'h' },
                         };
-                        comParse = core_1.commandParse({ args: inputs.Args }, apts);
+                        comParse = core_1.commandParse({ args: inputs.args }, apts);
                         this.logger.debug("commandParse response is: " + JSON.stringify(comParse));
                         if ((_a = comParse.data) === null || _a === void 0 ? void 0 : _a.help) {
                             core_1.help(constant_1.HELP);
                             return [2 /*return*/];
                         }
-                        _b = inputs.Project, provider = _b.Provider, accessAlias = _b.AccessAlias;
-                        return [4 /*yield*/, this.getCredentials(inputs.Credentials, provider, accessAlias)];
-                    case 1:
+                        return [4 /*yield*/, core_1.getCredential((_b = inputs.credentials) === null || _b === void 0 ? void 0 : _b.Alias)];
+                    case 1: return [4 /*yield*/, _c.sent()];
+                    case 2:
                         credentials = _c.sent();
-                        properties = inputs.Properties;
+                        properties = inputs.props;
                         region = properties.region, logConfig = properties.logConfig, topic = properties.topic, query = properties.query;
                         projectName = logConfig.project;
                         logStoreName = logConfig.logstore;
                         cmdParameters = comParse.data || {};
                         logsClient = new seachLogs_1.default(credentials, region);
-                        if (!cmdParameters.tail) return [3 /*break*/, 3];
+                        if (!cmdParameters.tail) return [3 /*break*/, 4];
                         return [4 /*yield*/, logsClient.realtime(projectName, logStoreName, topic, query)];
-                    case 2:
-                        _c.sent();
-                        return [3 /*break*/, 5];
                     case 3:
+                        _c.sent();
+                        return [3 /*break*/, 6];
+                    case 4:
                         from = moment_1.default().subtract(20, 'minutes').unix();
                         to = moment_1.default().unix();
                         startTime = cmdParameters.startTime, endTime = cmdParameters.endTime;
@@ -124,12 +107,12 @@ var Logs = /** @class */ (function () {
                         keyword = cmdParameters.keyword, type = cmdParameters.type, requestId = cmdParameters.requestId;
                         queryErrorLog = type === 'failed';
                         return [4 /*yield*/, logsClient.history(projectName, logStoreName, from, to, topic, query, keyword, queryErrorLog, requestId)];
-                    case 4:
+                    case 5:
                         historyLogs = _c.sent();
                         logsClient.printLogs(historyLogs);
-                        _c.label = 5;
-                    case 5: return [2 /*return*/, {
-                            Properties: inputs.Properties,
+                        _c.label = 6;
+                    case 6: return [2 /*return*/, {
+                            Properties: inputs.props,
                         }];
                 }
             });
@@ -142,4 +125,4 @@ var Logs = /** @class */ (function () {
     return Logs;
 }());
 exports.default = Logs;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi9zcmMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSw4Q0FBNEY7QUFDNUYsa0RBQTRCO0FBQzVCLGtEQUF1QjtBQUN2QixnRUFBMEM7QUFDMUMsdUNBQTJDO0FBQzNDLHlDQUFzRjtBQUV0RjtJQUFBO0lBdUZBLENBQUM7SUFwRk8sNkJBQWMsR0FBcEIsVUFDRSxXQUE4QixFQUM5QixRQUFnQixFQUNoQixXQUFvQjs7Ozs7d0JBRXBCLElBQUksQ0FBQyxNQUFNLENBQUMsS0FBSyxDQUNmLG9GQUFrRixnQkFBQyxDQUFDLE9BQU8sQ0FDekYsV0FBVyxDQUNWLENBQ0osQ0FBQzt3QkFFRixJQUFJLHlCQUFhLENBQUMsV0FBVyxDQUFDLEVBQUU7NEJBQzlCLHNCQUFPLFdBQVcsRUFBQzt5QkFDcEI7d0JBQ00scUJBQU0sb0JBQWEsQ0FBQyxRQUFRLEVBQUUsV0FBVyxDQUFDLEVBQUE7NEJBQWpELHNCQUFPLFNBQTBDLEVBQUM7Ozs7S0FDbkQ7SUFFSyxtQkFBSSxHQUFWLFVBQVcsTUFBTTs7Ozs7Ozt3QkFDVCxJQUFJLEdBQUc7NEJBQ1gsT0FBTyxFQUFFLENBQUMsTUFBTSxFQUFFLE1BQU0sQ0FBQzs0QkFDekIsTUFBTSxFQUFFLENBQUMsV0FBVyxFQUFFLFNBQVMsQ0FBQzs0QkFDaEMsb0NBQW9DOzRCQUNwQyxLQUFLLEVBQUUsRUFBRSxJQUFJLEVBQUUsR0FBRyxFQUFFLFNBQVMsRUFBRSxHQUFHLEVBQUUsT0FBTyxFQUFFLEdBQUcsRUFBRSxPQUFPLEVBQUUsR0FBRyxFQUFFLFNBQVMsRUFBRSxHQUFHLEVBQUUsSUFBSSxFQUFFLEdBQUcsRUFBRTt5QkFDNUYsQ0FBQzt3QkFDSSxRQUFRLEdBQWtCLG1CQUFZLENBQUMsRUFBRSxJQUFJLEVBQUUsTUFBTSxDQUFDLElBQUksRUFB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
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi9zcmMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSw4Q0FBNEY7QUFDNUYsa0RBQTRCO0FBRTVCLGdFQUEwQztBQUMxQyx1Q0FBMkM7QUFHM0M7SUFBQTtJQW9FQSxDQUFDO0lBakVPLG1CQUFJLEdBQVYsVUFBVyxNQUFlOzs7Ozs7O3dCQUNsQixJQUFJLEdBQUc7NEJBQ1gsT0FBTyxFQUFFLENBQUMsTUFBTSxFQUFFLE1BQU0sQ0FBQzs0QkFDekIsTUFBTSxFQUFFLENBQUMsV0FBVyxFQUFFLFNBQVMsQ0FBQzs0QkFDaEMsb0NBQW9DOzRCQUNwQyxLQUFLLEVBQUUsRUFBRSxJQUFJLEVBQUUsR0FBRyxFQUFFLFNBQVMsRUFBRSxHQUFHLEVBQUUsT0FBTyxFQUFFLEdBQUcsRUFBRSxPQUFPLEVBQUUsR0FBRyxFQUFFLFNBQVMsRUFBRSxHQUFHLEVBQUUsSUFBSSxFQUFFLEdBQUcsRUFBRTt5QkFDNUYsQ0FBQzt3QkFDSSxRQUFRLEdBQWtCLG1CQUFZLENBQUMsRUFBRSxJQUFJLEVBQUUsTUFBTSxDQUFDLElBQUksRUFBRSxFQUFFLElBQUksQ0FBQyxDQUFDO3dCQUMxRSxJQUFJLENBQUMsTUFBTSxDQUFDLEtBQUssQ0FBQywrQkFBNkIsSUFBSSxDQUFDLFNBQVMsQ0FBQyxRQUFRLENBQUcsQ0FBQyxDQUFDO3dCQUUzRSxVQUFJLFFBQVEsQ0FBQyxJQUFJLDBDQUFFLElBQUksRUFBRTs0QkFDdkIsV0FBSSxDQUFDLGVBQUksQ0FBQyxDQUFDOzRCQUNYLHNCQUFPO3lCQUNSO3dCQUV5QixxQkFBTSxvQkFBYSxPQUFDLE1BQU0sQ0FBQyxXQUFXLDBDQUFFLEtBQUssQ0FBQyxFQUFBOzRCQUFwRCxxQkFBTSxTQUE4QyxFQUFBOzt3QkFBbEUsV0FBVyxHQUFHLFNBQW9EO3dCQUNsRSxV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

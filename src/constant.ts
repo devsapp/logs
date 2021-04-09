@@ -55,8 +55,12 @@ export const HELP = [
     header: 'Examples',
     content: [
       {
-        desc: '使用: logs -s <startTime> -e <endTime> -r <requestId>',
-        example: '$ logs -s 1611823690000 -e 1611827290000 -k *** --type failed -r ********',
+        desc: '使用: s exec -- logs -s <startTime> -e <endTime> -r <requestId>',
+        example: '$ s exec -- logs -s 1611823690000 -e 1611827290000 -k *** --type failed -r ********',
+      },
+      {
+        desc: '使用: s exec -- logs -t',
+        example: '$ s exec -- logs -t',
       },
     ],
   },
