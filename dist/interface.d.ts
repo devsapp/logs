@@ -19,10 +19,20 @@ export interface IArgs {
     endTime: number;
     startTime: number;
 }
+export interface IInputs {
+    props: IProperties;
+    project: {
+        component: string;
+        access: string;
+        projectName: string;
+    };
+    appName: string;
+    args: string;
+    path: any;
+}
 export interface ICredentials {
     AccountID: string;
     AccessKeyID: string;
     AccessKeySecret: string;
     SecurityToken?: string;
 }
-export declare function isCredentials(arg: any): arg is ICredentials;
