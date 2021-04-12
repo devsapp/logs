@@ -23,7 +23,7 @@ export default class Logs {
       return;
     }
 
-    const credentials = await await getCredential(inputs.credentials?.Alias);
+    const credentials = await await getCredential(inputs.project.access);
     const properties: IProperties = inputs.props;
 
     const { region, logConfig, topic, query } = properties;
