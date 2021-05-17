@@ -1,1 +1,2 @@
-- 初始化版本
+- 修正core模块
+- 增加MIT LICENSE
