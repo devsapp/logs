@@ -2,7 +2,7 @@ Type: Component
 Name: logs
 Provider:
   - 阿里云
-Version: 0.0.3
+Version: 0.0.4
 Description: 日志查询功能
 HomePage: https://github.com/devsapp/logs
 Tags: #标签详情
