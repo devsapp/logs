@@ -23,6 +23,7 @@ export default class Client {
     return new SLS({
       accessKeyId: this.accessKeyID,
       secretAccessKey: this.accessKeySecret,
+      securityToken: this.stsToken,
       endpoint: `http://${this.region}.log.aliyuncs.com`,
       apiVersion: '2015-06-01',
     });

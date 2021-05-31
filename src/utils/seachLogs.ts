@@ -19,7 +19,7 @@ export default class SeachLogs extends Client {
   @HLogger(CONTEXT) logger: ILogger;
 
   printLogs(historyLogs: any[]) {
-    let requestId: string = '';
+    let requestId = '';
 
     for (const item of historyLogs) {
       if (requestId !== item.requestId) {
@@ -72,7 +72,7 @@ export default class SeachLogs extends Client {
    * 获取日志
    */
   async getLogs(requestParams: IGetLogs, tabReplaceStr = '') {
-    this.logger.debug(`get logs params: ${JSON.stringify(requestParams)}`)
+    this.logger.debug(`get logs params: ${JSON.stringify(requestParams)}`);
     let count;
     let xLogCount;
     let xLogProgress = 'Complete';
@@ -88,7 +88,7 @@ export default class SeachLogs extends Client {
           resolve(data);
         });
       });
-      const body = response.body;
+      const { body } = response;
 
       if (_.isEmpty(body)) {
         continue;
@@ -100,7 +100,7 @@ export default class SeachLogs extends Client {
       xLogProgress = response.headers['x-log-progress'];
 
       let requestId;
-      result = _.concat(result, _.values(body).map(cur => {
+      result = _.concat(result, _.values(body).map((cur) => {
         const currentMessage = cur.message;
         const found = currentMessage.match('(\\w{8}(-\\w{4}){3}-\\w{12}?)');
 
@@ -120,7 +120,7 @@ export default class SeachLogs extends Client {
           requestId,
           timestamp: cur.__time__,
           time: moment.unix(cur.__time__).format('YYYY-MM-DD H:mm:ss'),
-          message: currentMessage.replace(new RegExp(/(\r)/g), tabReplaceStr)
+          message: currentMessage.replace(new RegExp(/(\r)/g), tabReplaceStr),
         };
       }, {}));
     } while (xLogCount !== count && xLogProgress !== 'Complete');
@@ -182,7 +182,7 @@ export default class SeachLogs extends Client {
     const consumedTimeStamps = [];
     while (times > 0) {
       await sleep(1000);
-      times = times - 1;
+      times -= 1;
 
       timeStart = moment().subtract(10, 'seconds').unix();
       timeEnd = moment().unix();
@@ -201,7 +201,7 @@ export default class SeachLogs extends Client {
         continue;
       }
 
-      let showTimestamp: string = '';
+      let showTimestamp = '';
 
       const notConsumedLogs = _.filter(pulledlogs, (data) => {
         const { timestamp } = data;

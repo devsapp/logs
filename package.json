@@ -1,7 +1,7 @@
 {
   "name": "logs",
   "main": "./dist/index.js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "dependencies": {
     "@serverless-devs/core": "^0.0.*",
     "aliyun-sdk": "^1.12.3",
@@ -23,11 +23,10 @@
     "webpack-cli": "^4.4.0"
   },
   "scripts": {
+    "start": "npm run dev",
     "dev": "npx tsc -w -p tsconfig.json",
     "prebuild": "rimraf dist",
-    "build:ts": "npx tsc -p tsconfig.json",
-    "build:component": "npx webpack --mode=production",
-    "publish": "npm run build:component",
+    "build": "npx tsc -p tsconfig.json",
     "test": "jest",
     "test:cov": "jest --coverage",
     "lint": "f2elint scan",

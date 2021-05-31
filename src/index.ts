@@ -1,6 +1,5 @@
 import { HLogger, ILogger, getCredential, reportComponent, help, commandParse } from '@serverless-devs/core';
 import moment from 'moment';
-import _ from 'lodash';
 import SeachLogs from './utils/seachLogs';
 import { HELP, CONTEXT } from './constant';
 import { IInputs, ICommandParse, IProperties } from './interface';
@@ -26,7 +25,7 @@ export default class Logs {
     const credentials = await await getCredential(inputs.project.access);
     reportComponent('logs', {
       uid: credentials.AccountID,
-      command: 'logs'
+      command: 'logs',
     });
     const properties: IProperties = inputs.props;
 
