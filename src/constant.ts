@@ -1,23 +1,33 @@
 export const HELP = [
   {
+    header: 'Description',
+    content: 'Log query function.',
+  },
+  {
+    header: 'Usage',
+    content: [
+      { example: '$ s exec -- logs' }
+    ],
+  },
+  {
     header: 'Options',
     optionList: [
       {
         name: 'tail',
-        description: 'Real-time query log',
+        description: 'Continuous log output mode',
         alias: 't',
         defaultOption: false,
         type: Boolean,
       },
       {
-        name: 'startTime',
+        name: 'start-time',
         description: 'Query log start time',
         alias: 's',
         defaultOption: false,
         type: Number,
       },
       {
-        name: 'endTime',
+        name: 'end-time',
         description: 'Query log end time',
         alias: 'e',
         defaultOption: false,
@@ -31,7 +41,7 @@ export const HELP = [
         type: String,
       },
       {
-        name: 'requestId',
+        name: 'request-id',
         description: 'Query according to requestId within the time interval',
         alias: 'r',
         defaultOption: false,
@@ -43,23 +53,28 @@ export const HELP = [
         defaultOption: false,
         type: String,
       },
+    ],
+  },
+  {
+    header: 'Global Options',
+    optionList: [
       {
         name: 'help',
-        description: 'Use guide',
+        description: 'Logs help for command',
         alias: 'h',
         type: Boolean,
       },
     ],
   },
   {
-    header: 'Examples',
+    header: 'Examples with Yaml',
     content: [
       {
-        desc: '使用: s exec -- logs -s <startTime> -e <endTime> -r <requestId>',
-        example: '$ s exec -- logs -s 1611823690000 -e 1611827290000 -k *** --type failed -r ********',
+        desc: 'Query logs in the time interval',
+        example: '$ s exec -- logs -s 2021-06-07T02:54:00+08:00 -e 2021-06-07T02:54:59+08:00',
       },
       {
-        desc: '使用: s exec -- logs -t',
+        desc: 'Continuous log output mode',
         example: '$ s exec -- logs -t',
       },
     ],

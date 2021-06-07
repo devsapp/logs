@@ -10,9 +10,8 @@ export default class Logs {
   async logs(inputs: IInputs) {
     const apts = {
       boolean: ['tail', 'help'],
-      string: ['requestId', 'keyword'],
-      // number: ['startTime', 'endTime'],
-      alias: { tail: 't', startTime: 's', endTime: 'e', keyword: 'k', requestId: 'r', help: 'h' },
+      string: ['request-id', 'keyword'],
+      alias: { tail: 't', 'start-time': 's', 'end-time': 'e', keyword: 'k', 'request-id': 'r', help: 'h' },
     };
     const comParse: ICommandParse = commandParse({ args: inputs.args }, apts);
     this.logger.debug(`commandParse response is: ${JSON.stringify(comParse)}`);
@@ -41,7 +40,7 @@ export default class Logs {
     } else {
       let from = moment().subtract(20, 'minutes').unix();
       let to = moment().unix();
-      let { startTime, endTime } = cmdParameters;
+      let { s: startTime, e: endTime } = cmdParameters;
 
       if (startTime && endTime) {
         // 支持时间戳和其他时间格式
@@ -55,7 +54,7 @@ export default class Logs {
         this.logger.warn('By default, find logs within 20 minutes...\n');
       }
 
-      const { keyword, type, requestId } = cmdParameters;
+      const { keyword, type, r: requestId } = cmdParameters;
       const queryErrorLog = type === 'failed';
 
       const historyLogs = await logsClient.history(
