@@ -6,7 +6,7 @@ export const HELP = [
   {
     header: 'Usage',
     content: [
-      { example: '$ s exec -- logs' }
+      { example: '$ s exec -- logs' },
     ],
   },
   {

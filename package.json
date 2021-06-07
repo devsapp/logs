@@ -1,7 +1,7 @@
 {
   "name": "logs",
   "main": "./dist/index.js",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "dependencies": {
     "@serverless-devs/core": "^0.0.*",
     "aliyun-sdk": "^1.12.3",

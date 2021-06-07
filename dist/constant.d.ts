@@ -1,5 +1,15 @@
 export declare const HELP: ({
     header: string;
+    content: string;
+    optionList?: undefined;
+} | {
+    header: string;
+    content: {
+        example: string;
+    }[];
+    optionList?: undefined;
+} | {
+    header: string;
     optionList: ({
         name: string;
         description: string;
@@ -24,13 +34,16 @@ export declare const HELP: ({
         defaultOption: boolean;
         type: StringConstructor;
         alias?: undefined;
-    } | {
+    })[];
+    content?: undefined;
+} | {
+    header: string;
+    optionList: {
         name: string;
         description: string;
         alias: string;
         type: BooleanConstructor;
-        defaultOption?: undefined;
-    })[];
+    }[];
     content?: undefined;
 } | {
     header: string;
