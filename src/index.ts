@@ -1,5 +1,6 @@
 import { HLogger, ILogger, getCredential, reportComponent, help, commandParse } from '@serverless-devs/core';
 import moment from 'moment';
+import _ from 'lodash';
 import SeachLogs from './utils/seachLogs';
 import { HELP, CONTEXT } from './constant';
 import { IInputs, ICommandParse, IProperties } from './interface';
@@ -29,8 +30,23 @@ export default class Logs {
     const properties: IProperties = inputs.props;
 
     const { region, logConfig, topic, query } = properties;
+    if (_.isEmpty(logConfig)) {
+      throw new Error('LogConfig configuration is empty');
+    }
+    if (!topic) {
+      throw new Error('topic does not exist');
+    }
+    if (!region) {
+      throw new Error('region does not exist');
+    }
     const projectName = logConfig.project;
     const logStoreName = logConfig.logstore;
+    if (!projectName) {
+      throw new Error('logConfig.project does not exist');
+    }
+    if (!logStoreName) {
+      throw new Error('logConfig.logstore does not exist');
+    }
 
     const cmdParameters = comParse.data || {};
 

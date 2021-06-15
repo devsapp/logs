@@ -1,12 +1,12 @@
 export const HELP = [
   {
-    header: 'Description',
+    header: 'Log',
     content: 'Log query function.',
   },
   {
     header: 'Usage',
     content: [
-      { example: '$ s exec -- logs' },
+      { example: '$ s logs <options>' },
     ],
   },
   {
